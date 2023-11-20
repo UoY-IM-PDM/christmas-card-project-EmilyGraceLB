@@ -1,7 +1,7 @@
-let x;
-let y;
+// let x;
+// let y;
 
-let yDirection = 0;
+// let yDirection = 0;
 //y direction of sprite for movement mechanics
 
 // function setup(){
@@ -144,7 +144,7 @@ function draw(){
     }
 
     if(buildings[i].hits(sprite)){
-        console.log("HIT");
+        
     }
     
     for( let i = buildings.length; i < buildings.length; i++){
@@ -166,3 +166,7 @@ function keyPressed(){
     }
 }
 // to move the sprite up and down on the y axis
+
+function endGame(){
+    
+}
