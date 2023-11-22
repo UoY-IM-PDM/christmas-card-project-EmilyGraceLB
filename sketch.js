@@ -1,9 +1,13 @@
 let spriteImg;
 let sprite1;
 let building1;
+let backgroundGravel;
+let backgroundGravel2;
 
 function preload(){
     spriteImg = loadImage("assets/Player 1 sprite CC (3).png");
+    backgroundGravel = loadImage("assets/background start file.png");
+    backgroundGravel2 = loadImage("assets/background second stage.png");
 }
 
 class sprite {
@@ -60,11 +64,11 @@ class building {
     }
     drawbuilding(){
             rect(this.topBuildingX,this.topBuildingY, this.topBuildingW, this.topBuildingH );
-            rect(this.botBuildingX, this.botBuildingY, this.botBuildingW);
-            if(this.topBuildingX === 0){
+            if(this.topBuildingX === 400){
                 rect(this.topBuildingX,this.topBuildingY, this.topBuildingW, this.topBuildingH );
             }
-            if(this.botBuildingX === 0){
+            rect(this.botBuildingX, this.botBuildingY, this.botBuildingW);
+            if(this.botBuildingX === 400){
                 rect(this.botBuildingX, this.botBuildingY, this.botBuildingW);
             }
         }
@@ -85,11 +89,21 @@ function setup(){
 
 function draw(){
     background(255);
+    image(backgroundGravel,0,0);
     sprite1.show();
+    keyPressed();
     // sprite1.spriteYDown();
-    sprite1.spriteYUp();
     building1.drawbuilding();
     building1.buildingMove();
 
+}
+
+function keyPressed(){
+    if(key === 'w'){
+        sprite1.spriteYUp();
+    }
+    if(key === 's'){
+        sprite1.spriteYDown();
+    }
 }
 
