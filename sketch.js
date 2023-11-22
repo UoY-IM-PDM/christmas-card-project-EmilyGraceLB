@@ -65,11 +65,11 @@ class building {
     drawbuilding(){
             rect(this.topBuildingX,this.topBuildingY, this.topBuildingW, this.topBuildingH );
             if(this.topBuildingX === 400){
-                rect(this.topBuildingX,this.topBuildingY, this.topBuildingW, this.topBuildingH );
+                rect(800,this.topBuildingY, this.topBuildingW, this.topBuildingH );
             }
             rect(this.botBuildingX, this.botBuildingY, this.botBuildingW);
             if(this.botBuildingX === 400){
-                rect(this.botBuildingX, this.botBuildingY, this.botBuildingW);
+                rect(800, this.botBuildingY, this.botBuildingW);
             }
         }
     
