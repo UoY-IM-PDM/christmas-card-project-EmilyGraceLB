@@ -3,11 +3,17 @@ let sprite1;
 let building1;
 let backgroundGravel;
 let backgroundGravel2;
+let longMarket;
+let marketWithTrees;
+
+let buildings = [ longMarket, marketWithTrees]
 
 function preload(){
     spriteImg = loadImage("assets/Player 1 sprite CC (3).png");
     backgroundGravel = loadImage("assets/background start file.png");
     backgroundGravel2 = loadImage("assets/background second stage.png");
+    longMarket = loadImage("assets/long market.png");
+    marketWithTrees = loadImage("assets/christmas lights on market.png");
 }
 
 class sprite {
@@ -106,4 +112,19 @@ function keyPressed(){
         sprite1.spriteYDown();
     }
 }
+if (spawnBuild === True) {
+    building1.drawbuilding();
+}
 
+function randomiseBuildings(){
+
+}
+// toprandom(1, 5)
+// if (random = 1)
+// print ("hello")
+// draw marketwithtrees
+// elif (random = 2)
+// print ("hey")
+// draw long market
+
+//botrandom
