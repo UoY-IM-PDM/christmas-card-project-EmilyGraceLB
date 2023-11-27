@@ -5,8 +5,12 @@ let backgroundGravel;
 let backgroundGravel2;
 let longMarket;
 let marketWithTrees;
+let christmasTree;
+let marketMixedLights;
 
-let buildings = [ longMarket, marketWithTrees]
+let buildings = [ longMarket, marketWithTrees, christmasTree, marketMixedLights]
+
+let spawnBuild = true;
 
 function preload(){
     spriteImg = loadImage("assets/Player 1 sprite CC (3).png");
@@ -14,6 +18,8 @@ function preload(){
     backgroundGravel2 = loadImage("assets/background second stage.png");
     longMarket = loadImage("assets/long market.png");
     marketWithTrees = loadImage("assets/christmas lights on market.png");
+    christmasTree = loadImage("assets/christmas tree (1).png");
+    marketMixedLights = loadImage("assets/market mixed lights.png");
 }
 
 class sprite {
@@ -29,8 +35,8 @@ class sprite {
    }
    spriteYDown(){
         this.spriteY += this.spriteSpeed;
-        if(this.spriteY === 750 ){
-            this.spriteY = 750;
+        if(this.spriteY === 550 ){
+            this.spriteY = 550;
             this.spriteSpeed = 0;
         }
     }
@@ -56,51 +62,57 @@ class building {
     botBuildingW;
     botBuildingH;
     //bottom row of buidlings
+
     constructor(){
-        this.topBuildingX = 800;
+        this.topBuildingX = 600;
         this.topBuildingY = 0;
         this.topBuildingW = 200;
-        this.topBuildingH = random(50,600);
+        this.topBuildingH = random(50,450);
 
         this.speedBuilding = 1;
 
-        this.botBuildingX = 800;
-        this.botBuildingY = random(400,800);
+        this.botBuildingX = 600;
+        this.botBuildingY = random(250,600);
         this.botBuildingW = 200;        
     }
-    drawbuilding(){
-            rect(this.topBuildingX,this.topBuildingY, this.topBuildingW, this.topBuildingH );
-            if(this.topBuildingX === 400){
-                rect(800,this.topBuildingY, this.topBuildingW, this.topBuildingH );
-            }
-            rect(this.botBuildingX, this.botBuildingY, this.botBuildingW);
-            if(this.botBuildingX === 400){
-                rect(800, this.botBuildingY, this.botBuildingW);
-            }
+    drawbuilding(topImage){
+            image(topImage, this.topBuildingX, this.topBuildingY );
+            //image(longMarket, this.topBuildingX, this.topBuildingY)
+            image(marketWithTrees, this.botBuildingX, this.botBuildingY);
         }
     
     buildingMove(){
         this.topBuildingX += - this.speedBuilding;
         this.botBuildingX += - this.speedBuilding;
+        if(this.topBuildingX === 300){
+            spawnBuild = true;
+        }
     }
 }
 
 
 
 function setup(){
-    createCanvas(800,800);
+    createCanvas(600,600);
     sprite1 = new sprite();
     building1 = new building();
+    building2 = new building();
+    building3 = new building();
 }
 
 function draw(){
     background(255);
     image(backgroundGravel,0,0);
+
     sprite1.show();
     keyPressed();
     // sprite1.spriteYDown();
-    building1.drawbuilding();
+    building1.drawbuilding(christmasTree);
+    randomiseBuildings();
     building1.buildingMove();
+    //building1.drawbuilding();
+
+
 
 }
 
@@ -112,12 +124,30 @@ function keyPressed(){
         sprite1.spriteYDown();
     }
 }
-if (spawnBuild === True) {
-    building1.drawbuilding();
-}
 
 function randomiseBuildings(){
+    let topRandom = random(1,5);
+    if (topRandom === '1'){
+        building1.drawbuilding(christmasTree);
+    }
+    else if (topRandom === '2'){
+        topImage = marketWithTrees
+    }
+    else if (topRandom === '3'){
+        topImage = christmasTree
+    }
+    //else if (topRandom === '4'){
+    //   image(longMarket)
+    //}
+    else{
+        topImage = longMarket
+    }
+    
+    building1.drawbuilding(topImage);
 
+    if (spawnBuild === True) {
+        building1.drawbuilding(topImage, 0);
+    }
 }
 // toprandom(1, 5)
 // if (random = 1)
