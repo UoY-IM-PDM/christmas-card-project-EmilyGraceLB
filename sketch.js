@@ -8,19 +8,24 @@ let marketWithTrees;
 let christmasTree;
 let marketMixedLights;
 
-let buildings = [ longMarket, marketWithTrees, christmasTree, marketMixedLights]
+let buildingSelection = [];
+//stores images
 
-let spawnBuild = true;
+let buildingObject = [];
+//stores building objects
+
 
 function preload(){
     spriteImg = loadImage("assets/Player 1 sprite CC (3).png");
     backgroundGravel = loadImage("assets/background start file.png");
     backgroundGravel2 = loadImage("assets/background second stage.png");
-    longMarket = loadImage("assets/long market.png");
-    marketWithTrees = loadImage("assets/christmas lights on market.png");
-    christmasTree = loadImage("assets/christmas tree (1).png");
-    marketMixedLights = loadImage("assets/market mixed lights.png");
+    buildingSelection [0] = loadImage("assets/long market.png");
+    buildingSelection [1] = loadImage("assets/christmas lights on market.png");
+    buildingSelection [2] = loadImage("assets/chrima tree 100 100 copy.png");
+    buildingSelection [3] = loadImage("assets/market mixed lights.png");
 }
+
+
 
 class sprite {
     spriteY;
@@ -62,31 +67,31 @@ class building {
     botBuildingW;
     botBuildingH;
     //bottom row of buidlings
+    selectedImage;
 
     constructor(){
         this.topBuildingX = 600;
-        this.topBuildingY = 0;
+        this.topBuildingY = random(50,300);
         this.topBuildingW = 200;
-        this.topBuildingH = random(50,450);
+        // this.topBuildingH = random(50,450);
 
         this.speedBuilding = 1;
 
         this.botBuildingX = 600;
-        this.botBuildingY = random(250,600);
+        this.botBuildingY = random(300,400);
         this.botBuildingW = 200;        
     }
-    drawbuilding(topImage){
-            image(topImage, this.topBuildingX, this.topBuildingY );
-            //image(longMarket, this.topBuildingX, this.topBuildingY)
-            image(marketWithTrees, this.botBuildingX, this.botBuildingY);
+    drawbuilding(){
+            image(this.selectedImage, this.topBuildingX, this.topBuildingY);
+            image(this.selectedImage, this.botBuildingX, this.botBuildingY);
         }
     
     buildingMove(){
         this.topBuildingX += - this.speedBuilding;
         this.botBuildingX += - this.speedBuilding;
-        if(this.topBuildingX === 300){
-            spawnBuild = true;
-        }
+    }
+    selectImage(){
+        this.selectedImage = random(buildingSelection);
     }
 }
 
@@ -95,9 +100,9 @@ class building {
 function setup(){
     createCanvas(600,600);
     sprite1 = new sprite();
-    building1 = new building();
-    building2 = new building();
-    building3 = new building();
+
+    buildingObject.push(new building());
+    
 }
 
 function draw(){
@@ -107,13 +112,16 @@ function draw(){
     sprite1.show();
     keyPressed();
     // sprite1.spriteYDown();
-    building1.drawbuilding(christmasTree);
-    randomiseBuildings();
+    building1.drawbuilding();
     building1.buildingMove();
-    //building1.drawbuilding();
-
-
-
+    if(frameCount % 50 == 0){
+        buildingObject.push(new building());
+    }
+    for(i =0; i < buildingObject.length; i++){
+        buildingObject[i].selectImage();
+        buildingObject[i].drawbuilding();
+        buildingObject[i].buildingMove();
+    }
 }
 
 function keyPressed(){
@@ -124,37 +132,3 @@ function keyPressed(){
         sprite1.spriteYDown();
     }
 }
-
-function randomiseBuildings(){
-    let topRandom = random(1,5);
-    if (topRandom === '1'){
-        building1.drawbuilding(christmasTree);
-    }
-    else if (topRandom === '2'){
-        topImage = marketWithTrees
-    }
-    else if (topRandom === '3'){
-        topImage = christmasTree
-    }
-    //else if (topRandom === '4'){
-    //   image(longMarket)
-    //}
-    else{
-        topImage = longMarket
-    }
-    
-    building1.drawbuilding(topImage);
-
-    if (spawnBuild === True) {
-        building1.drawbuilding(topImage, 0);
-    }
-}
-// toprandom(1, 5)
-// if (random = 1)
-// print ("hello")
-// draw marketwithtrees
-// elif (random = 2)
-// print ("hey")
-// draw long market
-
-//botrandom
