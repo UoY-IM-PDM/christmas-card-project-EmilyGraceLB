@@ -20,23 +20,25 @@ function preload(){
     backgroundGravel = loadImage("assets/background start file.png");
     backgroundGravel2 = loadImage("assets/background second stage.png");
     buildingSelection [0] = loadImage("assets/long market resize.png");
-    buildingSelection [1] = loadImage("assets/market with trees.png");
+    buildingSelection [1] = loadImage("assets/Blank market resized.png");
     buildingSelection [2] = loadImage("assets/chrima tree 100 100 copy.png");
-    buildingSelection [3] = loadImage("assets/bright market.png");
+    buildingSelection [3] = loadImage("assets/market with trees.png");
 }
 
 class sprite {
     spriteY;
     spriteSpeed;
     spriteX;
+    spriteH;
 
     constructor(){
         this.spriteY = 300;
         this.spriteSpeed = 1;
-        this.spriteX;
+        this.spriteX = 0;
+        this.spriteH = 80;
     }
    show(){
-        image(spriteImg, 0, this.spriteY, 100, 100);
+        image(spriteImg, this.spriteX, this.spriteY, 100, 100);
    }
    spriteYDown(){
         this.spriteY += this.spriteSpeed;
@@ -68,22 +70,26 @@ class building {
     botBuildingH;
     //bottom row of buidlings
     selectedImage;
+    hits;
+    
 
     constructor(){
         this.topBuildingX = 600;
-        this.topBuildingY = random(0,300);
+        this.topBuildingY = random(0,250);
         // this.topBuildingW = 200;
         // this.topBuildingH = random(50,450);
 
         this.speedBuilding = 1;
 
         this.botBuildingX = 600;
-        this.botBuildingY = random(300,500);
+        this.botBuildingY = random(250,400);
         // this.botBuildingW = 200;
         // this.botBuildingH = random(50,300);      
+
+
     }
     drawbuilding(){
-            image(this.selectedImage, this.topBuildingX, this.topBuildingY);
+            image(this.selectedImage, this.topBuildingX, this.topBuildingY,);
             image(this.selectedImage, this.botBuildingX, this.botBuildingY);
         }
     
@@ -95,14 +101,22 @@ class building {
     selectImage(){
         this.selectedImage = random(buildingSelection);
     }
+    // hits(sprite1){
+    //     if(sprite1.spriteY < this.topBuildingY || sprite1.spriteY > this.botBuildingY){
+    //         background(0);
+    //         rectMode(CENTER);
+    //         text("Game Over",250,250);
+    //     }
+    // } 
 
 }
 
 function setup(){
-    createCanvas(600,600);
+    createCanvas(500,500);
     sprite1 = new sprite();
     buildingObject.push(new building());
     buildingObject[0].selectImage();
+    
 
 }
 
@@ -113,7 +127,10 @@ function draw(){
         
         buildingObject[i].drawbuilding();
         buildingObject[i].buildingMove();
+
+
     }
+    hits();
     sprite1.show();
     keyPressed();
     if (frameCount % 300 == 0) {
@@ -134,9 +151,29 @@ function keyPressed(){
     }
 }
 
+function hits(){
+
+    // checks any y coordinate greater than the top left of the sprite
+    // (sprite1.spriteY - 20) > buildingObject[0].topBuildingY && (sprite1.spriteY - 20) < (buildingObject[0].topBuildingY + 100)
+
+    // checks any y coordinate less than the bottom left of the sprite
+    //  (sprite1.spriteY + sprite1.spriteH) > buildingObject[0].topBuildingY && (sprite1.spriteY + sprite1.spriteH) < (buildingObject[0].topBuildingY + 100)
+
+    // repeats above lines for bottom building as well
+
+    // calulates top right corner of sprite and then checks if x coordiantes of buildings are equal to it
+    // ((sprite1.spriteX + 60) == buildingObject[0].topBuildingX  (sprite1.spriteX + 60) == buildingObject[0].botBuildingX)
+
+
+
+    if((((sprite1.spriteY - 20) > buildingObject[0].topBuildingY && (sprite1.spriteY - 20) < (buildingObject[0].topBuildingY + 100) || (sprite1.spriteY + sprite1.spriteH) > buildingObject[0].topBuildingY && (sprite1.spriteY + sprite1.spriteH) < (buildingObject[0].topBuildingY + 100) || ((sprite1.spriteY - 20) > buildingObject[0].botBuildingY && (sprite1.spriteY - 20) < (buildingObject[0].botBuildingY + 100) (sprite1.spriteY + sprite1.spriteH) > buildingObject[0].botBuildingY && (sprite1.spriteY + sprite1.spriteH) < (buildingObject[0].botBuildingY + 100))) && ((sprite1.spriteX + 60) == buildingObject[0].topBuildingX || (sprite1.spriteX + 60) == buildingObject[0].botBuildingX))) {
+        // place code for what happens after collision here
+    }
+}
+
 //game over function, clears canvas by redrawing a blank canvas with the game over text printed
 //function gameOver(){
-    //if(sprite1.spriteY && sprite1.spriteX === buildingObject.topBuildingX && buildingObject.topBuildingY || buildingObject.botBuildingX && buildingObject.botBuildingY){
+    //if(sprite1.spriteY === buildingObject.topBuildingY || buildingObject.botBuildingX && buildingObject.botBuildingY){
       //  background(0);
         //textSize(100);
         //fill(255);
@@ -154,3 +191,4 @@ function keyPressed(){
 //         return false;
 //     }
 // }
+
