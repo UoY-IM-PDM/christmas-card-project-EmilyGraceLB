@@ -8,6 +8,7 @@ let marketWithTrees;
 let christmasTree;
 let marketMixedLights;
 let check;
+let myFont;
 
 let buildingSelection = [];
 //stores images
@@ -23,6 +24,8 @@ function preload(){
     buildingSelection [1] = loadImage("assets/Blank market resized.png");
     buildingSelection [2] = loadImage("assets/chrima tree 100 100 copy.png");
     buildingSelection [3] = loadImage("assets/market with trees.png");
+//images for buildings
+    myFont = loadFont("assets/Terminus (TTF) 500.ttf");
 }
 
 class sprite {
@@ -117,29 +120,34 @@ function setup(){
     buildingObject.push(new building());
     buildingObject[0].selectImage();
     
-
 }
 
 function draw(){
     background(255);
     image(backgroundGravel,0,0);
-    for(let i = buildingObject.length -1; i >= 0; i--){
+    textFont(myFont);
+    text("press SPACE to start", 150,250);
+    textSize(20);
+    if( keyPressed === 'SPACE_BAR'){
+        image(backgroundGravel,0,0);
+            for(let i = buildingObject.length -1; i >= 0; i--){
         
-        buildingObject[i].drawbuilding();
-        buildingObject[i].buildingMove();
+                buildingObject[i].drawbuilding();
+                buildingObject[i].buildingMove();
 
 
-    }
-    hits();
-    sprite1.show();
-    keyPressed();
-    if (frameCount % 300 == 0) {
-            building1 = new building();
-            building1.selectImage();
-            buildingObject.push(building1);
-    }
+            }
+            hits();
+            sprite1.show();
+            keyPressed();
+            if (frameCount % 300 == 0) {
+                building1 = new building();
+                building1.selectImage();
+                buildingObject.push(building1);
+            }
     // sprite1.spriteYDown();
 
+        }
 }
 
 function keyPressed(){
@@ -168,6 +176,10 @@ function hits(){
 
     if((((sprite1.spriteY - 20) > buildingObject[0].topBuildingY && (sprite1.spriteY - 20) < (buildingObject[0].topBuildingY + 100) || (sprite1.spriteY + sprite1.spriteH) > buildingObject[0].topBuildingY && (sprite1.spriteY + sprite1.spriteH) < (buildingObject[0].topBuildingY + 100) || ((sprite1.spriteY - 20) > buildingObject[0].botBuildingY && (sprite1.spriteY - 20) < (buildingObject[0].botBuildingY + 100) (sprite1.spriteY + sprite1.spriteH) > buildingObject[0].botBuildingY && (sprite1.spriteY + sprite1.spriteH) < (buildingObject[0].botBuildingY + 100))) && ((sprite1.spriteX + 60) == buildingObject[0].topBuildingX || (sprite1.spriteX + 60) == buildingObject[0].botBuildingX))) {
         // place code for what happens after collision here
+        background(0);
+        fill(255);
+        text("GAME OVER",250,250);
+        
     }
 }
 
@@ -189,6 +201,6 @@ function hits(){
 //     }
 //     else{
 //         return false;
-//     }
-// }
+//  
+
 
