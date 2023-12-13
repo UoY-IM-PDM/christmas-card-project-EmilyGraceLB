@@ -15,6 +15,7 @@ let buildingSelection = [];
 
 let buildingObject = [];
 //stores building objects
+let run = 0;
 
 function preload(){
     spriteImg = loadImage("assets/Player 1 sprite CC (3).png");
@@ -112,6 +113,7 @@ class building {
     //     }
     // } 
 
+
 }
 
 function setup(){
@@ -128,7 +130,7 @@ function draw(){
     textFont(myFont);
     text("press SPACE to start", 150,250);
     textSize(20);
-    if( keyPressed === 'SPACE_BAR'){
+    if(run === 1){
         image(backgroundGravel,0,0);
             for(let i = buildingObject.length -1; i >= 0; i--){
         
@@ -148,9 +150,17 @@ function draw(){
     // sprite1.spriteYDown();
 
         }
+    if(run === 2){
+        background(0);
+        fill(255);
+        text("GAME OVER",250,250);
+    }
 }
 
 function keyPressed(){
+    if( key ===' '){
+        run = 1;
+    }
     if(key === 'w'){
         sprite1.spriteYUp();
     }
@@ -160,47 +170,9 @@ function keyPressed(){
 }
 
 function hits(){
-
-    // checks any y coordinate greater than the top left of the sprite
-    // (sprite1.spriteY - 20) > buildingObject[0].topBuildingY && (sprite1.spriteY - 20) < (buildingObject[0].topBuildingY + 100)
-
-    // checks any y coordinate less than the bottom left of the sprite
-    //  (sprite1.spriteY + sprite1.spriteH) > buildingObject[0].topBuildingY && (sprite1.spriteY + sprite1.spriteH) < (buildingObject[0].topBuildingY + 100)
-
-    // repeats above lines for bottom building as well
-
-    // calulates top right corner of sprite and then checks if x coordiantes of buildings are equal to it
-    // ((sprite1.spriteX + 60) == buildingObject[0].topBuildingX  (sprite1.spriteX + 60) == buildingObject[0].botBuildingX)
-
-
-
-    if((((sprite1.spriteY - 20) > buildingObject[0].topBuildingY && (sprite1.spriteY - 20) < (buildingObject[0].topBuildingY + 100) || (sprite1.spriteY + sprite1.spriteH) > buildingObject[0].topBuildingY && (sprite1.spriteY + sprite1.spriteH) < (buildingObject[0].topBuildingY + 100) || ((sprite1.spriteY - 20) > buildingObject[0].botBuildingY && (sprite1.spriteY - 20) < (buildingObject[0].botBuildingY + 100) (sprite1.spriteY + sprite1.spriteH) > buildingObject[0].botBuildingY && (sprite1.spriteY + sprite1.spriteH) < (buildingObject[0].botBuildingY + 100))) && ((sprite1.spriteX + 60) == buildingObject[0].topBuildingX || (sprite1.spriteX + 60) == buildingObject[0].botBuildingX))) {
-        // place code for what happens after collision here
-        background(0);
-        fill(255);
-        text("GAME OVER",250,250);
-        
+    if((((sprite1.spriteY - 20) > buildingObject[0].topBuildingY && (sprite1.spriteY - 20) < (buildingObject[0].topBuildingY + 100) || (sprite1.spriteY + sprite1.spriteH) > buildingObject[0].topBuildingY && (sprite1.spriteY + sprite1.spriteH) < (buildingObject[0].topBuildingY + 100) || ((sprite1.spriteY - 20) > buildingObject[0].botBuildingY && (sprite1.spriteY - 20) < (buildingObject[0].botBuildingY + 100) || (sprite1.spriteY + sprite1.spriteH) > buildingObject[0].botBuildingY && (sprite1.spriteY + sprite1.spriteH) < (buildingObject[0].botBuildingY + 100))) && ((sprite1.spriteX + 60) == buildingObject[0].topBuildingX || (sprite1.spriteX + 60) == buildingObject[0].botBuildingX))) {
+        run = 2;
     }
+    // sprite1.spriteY > buildingObject.topBuildingY && sprite1.spriteY + 100 > buildingObject.topBuildingY + 100
 }
-
-//game over function, clears canvas by redrawing a blank canvas with the game over text printed
-//function gameOver(){
-    //if(sprite1.spriteY === buildingObject.topBuildingY || buildingObject.botBuildingX && buildingObject.botBuildingY){
-      //  background(0);
-        //textSize(100);
-        //fill(255);
-        //text("GAME OVER",width/2, height/2);
-
-    //}
-//}
-
-//game start function with right click
-// function gameStart(){
-//     if(mouseButton === RIGHT){
-//         //begin game, call functions in draw that load sprite and let sprite move
-//     }
-//     else{
-//         return false;
-//  
-
-
+//sprite1.spriteX == buildingObject[0].topBuildingX && sprite1.spriteY == buildingObject[0].topBuildingY || sprite1.spriteY == buildingObject[0].botBuildingY
